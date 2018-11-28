@@ -1,0 +1,26 @@
+@import "./normalize.css";
+.clear {
+  zoom: 1;
+  :after {
+    clear: both;
+    content: "";
+    height: 0;
+    display: block;
+    visibility: hidden;
+  }
+}
+
+// 使用混合器 @mixin 实现大段样式的重用;
+// 何时应该使用混合器：经验是能够使用语义化的命名完成混合器的命名：因为通常能复用的css片段往往是具有一些含义的；
+// 混合器同时也是用于展示性的描述，用于描述css规则展现的效果
+@mixin rounded-corners {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.notice {
+  background-color: green;
+  border: 2px solid #00aa00;
+  @include rounded-corners;
+}
