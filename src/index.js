@@ -5,12 +5,9 @@ const log = console.log.bind(this);
 const hello = require("./js/hello.js");
 document.querySelector("#root").appendChild(hello());
 
-const TEXT_NUM = 2018;
-let arr = [1, 2, 3, 3];
-let arr2 = arr.map(item => {
-  item * 2;
+const TEXT_NUM = 6;
+let arr = [1, 2, 3, 3].map(item => {
+  return item * 2;
 });
-
-log(arr2.includes(6));
-
-log(new Set(arr2));
+log(arr.includes(TEXT_NUM));
+log(new Set(arr));
