@@ -43,12 +43,19 @@ module.exports = {
 
 #### babel 配置
 
-Babel 的核心配置在 babel-core 中，同样的我们可以将 babel 不同的包整合到一起完成我们需要的功能；Babel 默认只转换新的 JavaScript 语法，而不转换新的 API。例如，Iterator、Set、Maps、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign）都不会转译。如果想使用这些新的对象和方法，必须使用 babel-polyfill，为当前环境提供一个 polyfill；
+Babel 的核心配置在 babel-core 中，同样的我们可以将 babel 不同的包整合到一起完成我们需要的功能；
 
 ```javascript
 cnpm i babel-core babel-loader babel-preset-env babel-plugin-transform-runtime -D
 cnpm i babel-polyfill babel-runtime --save
 ```
+
+- **babel-polyfill**
+
+  `Babel` 默认只转换新的 `JavaScript` 语法，而不转换新的 `API`。例如，Iterator、Set、Maps、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 `Object.assign`）都不会转译。如果想使用这些新的对象和方法，必须使用 `babel-polyfill`，很多功能改写全局 prototype；
+
+- **babel-runtime**
+  对于 `babel` 转译代码需要用到工具函数，编译过程中则会重复出现导致编译后的代码体积变大，所以提供了单独的包 `babel-runtime` 供编译模块复用工具函数，并且工具函数自动引用了 polyfill。这样可以避免污染全局命名空间；在 webpack 中，`babel-plugin-transform-runtime` 实际上是依赖 `babel-runtime`
 
 ```javascript
 //webpack.config.js (add)
@@ -62,6 +69,7 @@ rule: [
     }
   }
 ];
+
 // .babelrc
 {
   "presets": [
@@ -84,3 +92,5 @@ rule: [
 因为 babel-loader | babel 对应的版本需要一致(此处回退到原版本即可)
 
 > cnpm i babel-loader@7 babel-core babel-preset-env -D
+
+此时我们就完成 `webpack` 转译 `ES6+` 语法
