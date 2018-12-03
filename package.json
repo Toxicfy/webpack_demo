@@ -8,6 +8,10 @@
     "dev": "webpack-dev-server --open"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.1",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
@@ -17,5 +21,9 @@
     "webpack-dev-server": "^3.1.10"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0"
+  }
 }

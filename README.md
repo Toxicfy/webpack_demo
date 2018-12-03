@@ -8,7 +8,7 @@
 
 `loaders` 的功能相对单一但是通过组合就可以完成常用的很多功能，例如：`Scss`、`ES6`、`JSX` 等编译为浏览器（较低低版本）支持，利于进行兼容等功能；
 
-### 在 `webpack` 项目中添加 `sass/scss` 编译
+#### 在 `webpack` 项目中添加 `sass/scss` 编译
 
 ```javascript
 // 安装(ps: sass-loader依赖于node-sass)
@@ -38,3 +38,12 @@ module.exports = {
   }
 };
 ```
+
+#### babel 配置
+
+Babel 的核心配置在 babel-core 中，同样的我们可以将 babel 不同的包整合到一起完成我们需要的功能；Babel 默认只转换新的 JavaScript 语法，而不转换新的 API。例如，Iterator、Set、Maps、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign）都不会转译。如果想使用这些新的对象和方法，必须使用 babel-polyfill，为当前环境提供一个 polyfill；
+
+cnpm i babel-core babel-loader babel-preset-env babel-plugin-transform-runtime -D
+cnpm i babel-polyfill babel-runtime --save
+
+// cnpm i babel-loader@7 babel-core babel-preset-env -D () //babel-loader | babel 对应的版本需要一致(此处回退到原版本)

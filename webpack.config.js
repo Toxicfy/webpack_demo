@@ -23,7 +23,15 @@ module.exports = {
       },
       {
         test: /\.(scss|sass)$/, // 正则匹配以.scss和.sass结尾的文件
-        use: ["style-loader", "css-loader", "sass-loader"] // 需要用的loader，一定是这个顺序，因为调用loader是从右往左编译的
+        use: ["style-loader", "css-loader", "sass-loader"]
+      },
+      {
+        // 配置信息 - .babelrc
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader"
+        }
       }
     ]
   }
