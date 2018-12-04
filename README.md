@@ -8,7 +8,7 @@
 
 `loaders` 的功能相对单一但是通过组合就可以完成常用的很多功能，例如：`Scss`、`ES6`、`JSX` 等编译为浏览器（较低低版本）支持，利于进行兼容等功能；
 
-#### 在 `webpack` 项目中添加 `sass/scss` 编译
+### 在 `webpack` 项目中添加 `sass/scss` 编译
 
 ```JavaScript
 //安装(ps: sass-loader依赖于node-sass)
@@ -41,7 +41,7 @@ module.exports = {
 };
 ```
 
-#### babel 配置
+### babel 配置
 
 Babel 的核心配置在 babel-core 中，同样的我们可以将 babel 不同的包整合到一起完成我们需要的功能；
 
@@ -94,3 +94,44 @@ rule: [
 > cnpm i babel-loader@7 babel-core babel-preset-env -D
 
 此时我们就完成 `webpack` 转译 `ES6+` 语法
+
+### 本地服务器 && 热更新
+
+当我们完成一些简单的 `webpack` 配置，我们需要在频繁修改文件的时候，考虑搭建一个本地的服务以及热更新，进行自动化更新文件和打包；
+
+基于`node.js` ，在 `webpack` 提供了一个本地开发服务器，安装 `webpack-dev-server` 作为项目依赖：
+
+```javascript
+// cnpm i webpack-dev-server -D
+
+
+//package.json
+{
+  // ****
+  "scripts": {
+    "start": "webpack-dev-server --open"
+  }
+  // ****
+}
+
+```
+
+对于 `webpack.config.js` 配置如下：
+
+```javascript
+const webpack = require("webpack"); // 引入webpack模块，这样才能使用热更新插件
+module.exports = {
+  // ****
+  devServer: {
+    contentBase: "./dist", // 本地服务器所加载文件的目录
+    port: "8080",
+    inline: true, // 文件修改后实时刷新
+    historyApiFallback: true, //不跳转
+    hot: true // 热更新
+  },
+  // ****
+  plugins: [
+    new webpack.HotModuleReplacementPlugin() // 热更新插件：webpack中自带的插件
+  ]
+};
+```
