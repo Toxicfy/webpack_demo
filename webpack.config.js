@@ -1,5 +1,6 @@
 // webpack.config.js
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: path.join(__dirname, "/src/index.js"), // 入口文件
   output: {
@@ -12,7 +13,12 @@ module.exports = {
     inline: true, // 文件修改后实时刷新
     historyApiFallback: true //不跳转
   },
-  devtool: "source-map", // 会生成对于调试的完整的.map文件，但同时也会减慢打包速度
+  plugins:[
+    new HtmlWebpackPlugin({
+      template:'./dist/index.html'
+    })
+  ],
+  //devtool: "source-map", // 会生成对于调试的完整的.map文件，但同时也会减慢打包速度
   module: {
     // test(用于进行正则匹配文件);  use(loader的名字);
     // include/exclude(手动添加、屏蔽文件); option(可选配置)

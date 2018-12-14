@@ -135,3 +135,31 @@ module.exports = {
   ]
 };
 ```
+
+此时我们发现进入`html`发现页面并没有在更改了js后完成对应功能的更新；还需要进行手动执行`webpack`，这显然不是我们希望的；
+
+> https://webpack.docschina.org/plugins/html-webpack-plugin/ 
+
+`html-webpack-plugin` 这个插件可以简化html文件的创建，不仅可以实时的完成`js`的更新，并且在设定好参数 `template` 的情况下可以将打包的文件导入到该模版中
+
+照例安装一下： `npm install --save-dev html-webpack-plugin`；
+
+然后在 `webpack.config.js` 的 `plugins` 字段添加新的plugin；
+
+``` javascript
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
+module.exports = {
+  entry: 'index.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'index_bundle.js'
+  },
+  plugins: [new HtmlWebpackPlugin(
+    template: './dist/index.html'
+  )]
+};
+```
+
+此时完成自动化更新文件，并自动将打包的文件插入到对应的模板位置，
