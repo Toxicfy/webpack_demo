@@ -162,4 +162,38 @@ module.exports = {
 };
 ```
 
-此时完成自动化更新文件，并自动将打包的文件插入到对应的模板位置，
+此时完成自动化更新文件，并自动将打包的文件插入到对应的模板位置;
+
+
+### 处理图片资源
+
+使用的是 `url-loader` 处理图片(可以设置 `limit` 控制 `base64` 的生成), 因为 `url-loader` 可以自动调用 `file-loader` 完成不能转换的文件,所以同样需要安装 `file-loader`;
+
+> npm i url-loader file-loader -D
+
+```javascript
+module.exports = {
+  // ****
+  rules: [
+    {
+      test: /\.(png|jpg|jpeg|gif)$/,
+      use: [
+        {
+          loader: "url-loader",
+          options: {
+            limit: 1024 // url-loader的 limit 选项，可以根据图片大小来决定是否进行base64编码
+          }
+        }
+      ]
+    }
+  ]
+};
+```
+
+当然这个可以在 `js` 以及 `css` 使用相对路径即可，但是在 `html` 中使用的 `src` 属性绑定的路径就不能被编译;
+
+解决方案的话是安装新的`html-loader` 处理或者是直接在 `html` 中进行 `require` 即可
+
+```html
+<img src="${require('../src/image/1.png')}" />
+```
